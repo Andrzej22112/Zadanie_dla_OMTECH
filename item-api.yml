@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: Item API
+  version: 1.0.0
+paths:
+  /api/items:
+    post:
+      summary: Create new items
+      description: |
+        Creates new items from a list of ItemDto objects.
+        Validates data before saving.
+      requestBody:
+        description: List of ItemDto objects to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ItemDto'
+      responses:
+        "200":
+          description: Items successfully processed
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /api/items/test:
+    get:
+      summary: Test endpoint
+      description: |
+        Tests the availability of the service
+      responses:
+        "200":
+          description: Service is operational
+          content:
+            application/json:
+              schema:
+                type: string
+
+components:
+  schemas:
+    ItemDto:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        value:
+          type: integer
+          maximum: 1
